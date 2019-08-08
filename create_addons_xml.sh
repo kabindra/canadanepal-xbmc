@@ -14,12 +14,12 @@ do
         if [ ! -f  $plugin/pre_release ]
         then 
              echo "Adding " $plugin
-            tail --lines=+2  $plugin/addon.xml >> $addons_file
+            tail -n +2  $plugin/addon.xml >> $addons_file
         fi
     fi
 done
 echo "</addons>" >> $addons_file
 
 echo "Generating checksum file in " $md5_file
-md5sum $addons_file > $md5_file
+md5 -r $addons_file > $md5_file
 echo "Successfully completed operation "
