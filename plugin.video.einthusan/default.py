@@ -23,7 +23,7 @@ username = ADDON.getSetting('username')
 password = ADDON.getSetting('password')
 
 locationStr = xbmcplugin.getSetting(int(sys.argv[1]), 'location')
-Locations = ['Los Angeles', 'Dallas', 'Washington D.C', 'No Preference']
+Locations = ['Los Angeles', 'Dallas', 'Washington D.C', 'London', 'No Preference']
 
 locationId = int(locationStr)
 if (locationId > len(Locations) - 1):
@@ -419,8 +419,10 @@ def preferred_server(lnk, mainurl):
 			servers = [1]
 		elif location == 'Los Angeles':
 			servers = [3]
+        elif location == 'London':
+            servers = [4]
 		else: # location == 'Unknown'
-			servers = [4]
+			servers = [1]
 			
 		server_n = lnk.split('.einthusan.io')[0].strip('https://cdn')
 		SERVER_OFFSET = []

@@ -5,7 +5,8 @@
 	<string id="3004">Location</string>
 	<string id="3005">Los Angeles</string>
 	<string id="3006">Dallas</string>
-	<string id="3007">Washington D.C</string>
+    <string id="3007">Washington D.C</string>
+    <string id="3008">London</string>
 	<string id="3012">No Preference</string>
 	<string id="3011">Select Your Nearest City</string>
 </strings>
