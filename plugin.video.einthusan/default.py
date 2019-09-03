@@ -23,7 +23,7 @@ username = ADDON.getSetting('username')
 password = ADDON.getSetting('password')
 
 locationStr = xbmcplugin.getSetting(int(sys.argv[1]), 'location')
-Locations = ['Los Angeles', 'Dallas', 'Washington D.C', 'No Preference']
+Locations = ['Los Angeles', 'Dallas', 'Washington D.C', 'London', 'No Preference']
 
 locationId = int(locationStr)
 if (locationId > len(Locations) - 1):
@@ -411,28 +411,31 @@ def get_movie(s, mainurl, mainurlajax, headers=None):
     # xbmcplugin.endOfDirectory(int(sys.argv[1]))
     
 def preferred_server(lnk, mainurl):
-	xbmc.log(location, level=xbmc.LOGNOTICE)
-	if location != 'No Preference':
-		if location == 'Dallas':
-			servers = [2]
-		elif location == 'Washington D.C':
+    xbmc.log(location, level=xbmc.LOGNOTICE)
+    if location != 'No Preference':
+        if location == 'Dallas':
+            servers = [2]
+        elif location == 'Washington D.C':
 			servers = [1]
-		elif location == 'Los Angeles':
-			servers = [3]
-		else: # location == 'Unknown'
-			servers = [4]
-			
-		server_n = lnk.split('.einthusan.io')[0].strip('https://cdn')
-		SERVER_OFFSET = []
-		if int(server_n) > 100:
-			SERVER_OFFSET.append(100)
-		else:
-			SERVER_OFFSET.append(0)
-		servers.append(int(server_n) - SERVER_OFFSET[0])
-		vidpath = lnk.split('.io/')[1]
-		new_headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36', 'Referer':mainurl, 'Origin':'https://einthusan.ca'}
-		for i in servers:
-			urltry = ("https://cdn" + str(i+SERVER_OFFSET[0]) + ".einthusan.io/" + vidpath)
+        elif location == 'Los Angeles':
+            servers = [3]
+        elif location == 'London':
+            servers = [4]
+        else: # location == 'Unknown'
+            servers = [4]
+        server_n = lnk.split('.einthusan.io')[0].strip('https://cdn')
+        SERVER_OFFSET = []
+        if int(server_n) > 100:
+            SERVER_OFFSET.append(100)
+        else:
+            SERVER_OFFSET.append(0)
+        servers.append(int(server_n) - SERVER_OFFSET[0])
+        vidpath = lnk.split('.io/')[1]
+        new_headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36',
+                 'Referer': mainurl, 'Origin': 'https://einthusan.ca'}
+        for i in servers:
+			urltry = ("https://cdn" +
+			          str(i+SERVER_OFFSET[0]) + ".einthusan.io/" + vidpath)
 			isitworking = requests.get(urltry, headers=new_headers).status_code
 			xbmc.log(urltry, level=xbmc.LOGNOTICE)
 			xbmc.log(str(isitworking), level=xbmc.LOGNOTICE)
